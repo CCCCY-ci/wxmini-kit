@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title">
+  <title id="title">wxmini-kit</title>
+  <defs>
+    <linearGradient id="background" x1="28" y1="18" x2="228" y2="238" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#163b72"/>
+      <stop offset="1" stop-color="#087fc2"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="72" y1="37" x2="174" y2="189" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#d9efff"/>
+    </linearGradient>
+    <linearGradient id="tray" x1="52" y1="157" x2="204" y2="220" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#67e0ef"/>
+      <stop offset="1" stop-color="#1bb3d3"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="240" height="240" rx="54" fill="url(#background)"/>
+  <path d="M59 43a12 12 0 0 1 12-12h69l39 39v117a12 12 0 0 1-12 12H71a12 12 0 0 1-12-12V43Z" fill="#062552" opacity=".26"/>
+  <path d="M55 39a12 12 0 0 1 12-12h69l39 39v117a12 12 0 0 1-12 12H67a12 12 0 0 1-12-12V39Z" fill="url(#paper)"/>
+  <path d="M136 27v39a12 12 0 0 0 12 12h39" fill="#b6e0f9"/>
+  <path d="M136 27v39a12 12 0 0 0 12 12h39" fill="none" stroke="#75bce4" stroke-width="3"/>
+  <path d="m85 99-15 17 15 17m38-34 15 17-15 17m-4-37-14 44" fill="none" stroke="#1768bf" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+  <path d="M163 96v39m0 0-12-12m12 12 12-12" fill="none" stroke="#08a9cf" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+  <path d="m50 157 78 30 78-30v49l-78 31-78-31v-49Z" fill="url(#tray)"/>
+  <path d="m50 157 78 30 78-30-78-31-78 31Z" fill="#b8f5f6"/>
+  <path d="M128 187v50m-78-80 78 30 78-30" fill="none" stroke="#087ea8" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
+</svg>

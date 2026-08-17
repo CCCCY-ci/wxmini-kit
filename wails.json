@@ -1,0 +1,20 @@
+{
+  "$schema": "https://wails.io/schemas/config.v2.json",
+  "name": "wxmini-kit",
+  "outputfilename": "wxmini-kit",
+  "frontend:install": "npm install",
+  "frontend:build": "npm run build",
+  "frontend:dev:watcher": "npm run dev",
+  "frontend:dev:serverUrl": "auto",
+  "info": {
+    "productName": "wxmini-kit",
+    "productVersion": "0.1.0",
+    "companyName": "CCCCY-ci",
+    "copyright": "Copyright 2026 CCCCY-ci. All rights reserved.",
+    "comments": "For learning and research only; do not use for infringement or illegal purposes."
+  },
+  "author": {
+    "name": "CCCCY-ci",
+    "email": ""
+  }
+}

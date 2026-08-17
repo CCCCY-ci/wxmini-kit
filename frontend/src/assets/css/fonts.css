@@ -1,0 +1,5 @@
+/* ── Bundled Fonts ─────────────────────────────────────────── */
+/* All @font-face declarations are injected by @fontsource packages */
+@import '@fontsource/inter/400.css';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/noto-sans-sc/400.css';

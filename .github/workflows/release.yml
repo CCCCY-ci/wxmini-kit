@@ -1,0 +1,122 @@
+name: CI / CD
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Windows x64
+            platform: windows
+            os: windows-latest
+            artifact_name: wxmini-kit-windows-x64
+            artifact_path: build/release/wxmini-kit-windows-x64.zip
+          - name: macOS Universal
+            platform: macos
+            os: macos-latest
+            artifact_name: wxmini-kit-macos-universal
+            artifact_path: build/release/wxmini-kit-macos-universal.zip
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: frontend
+        run: npm run build
+
+      - name: Run Go tests
+        run: go test ./...
+
+      - name: Run Go static checks
+        run: go vet ./wechat
+
+      - name: Install Wails CLI
+        run: go install github.com/wailsapp/wails/v2/cmd/wails@v2.14.0
+
+      - name: Build Windows
+        if: matrix.platform == 'windows'
+        env:
+          CGO_ENABLED: 0
+        run: wails build -clean -platform windows/amd64
+
+      - name: Build macOS
+        if: matrix.platform == 'macos'
+        env:
+          MACOSX_DEPLOYMENT_TARGET: '10.13'
+        run: wails build -clean -platform darwin/universal
+
+      - name: Package Windows
+        if: matrix.platform == 'windows'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path build/release | Out-Null
+          Copy-Item build/bin/wxmini-kit.exe build/release/wxmini-kit-windows-x64.exe
+          Compress-Archive -Path build/release/wxmini-kit-windows-x64.exe -DestinationPath build/release/wxmini-kit-windows-x64.zip
+
+      - name: Package macOS
+        if: matrix.platform == 'macos'
+        shell: bash
+        run: |
+          mkdir -p build/release
+          ditto -c -k --keepParent build/bin/wxmini-kit.app build/release/wxmini-kit-macos-universal.zip
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: ${{ matrix.artifact_path }}
+          if-no-files-found: error
+
+  publish:
+    name: Publish GitHub Release
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-assets
+          merge-multiple: true
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          fail_on_unmatched_files: true
+          files: |
+            release-assets/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

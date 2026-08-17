@@ -1,0 +1,32 @@
+# Local tools and IDE files
+/.task/
+/.idea/
+
+# Go and local build outputs
+/bin/
+*_test.go
+*.test
+*.coverprofile
+/coverage/
+/test-results/
+
+# Frontend generated files
+/frontend/node_modules/
+/frontend/dist/
+/frontend/package.json.md5
+
+# Wails generated build outputs
+/build/bin/
+/build/release/
+/build/linux/appimage/build/
+/build/windows/nsis/MicrosoftEdgeWebview2Setup.exe
+
+# Documentation and temporary test directories
+/docs/
+/test/
+/tests/
+
+# Logs and operating-system files
+*.log
+.DS_Store
+Thumbs.db

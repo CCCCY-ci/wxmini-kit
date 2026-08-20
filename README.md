@@ -2,7 +2,13 @@
 
 基于原版 [wxapkg](https://github.com/wux1an/wxapkg) 重构的微信小程序包解析、解包和源码恢复工具。
 
-项目使用 Wails + Vue + Go 构建，保留原有 wxapkg 基础解析能力，并重构了源码恢复流程和 JavaScript 美化器。
+项目使用 **Wails + Vue + Go** 构建，保留原有 wxapkg 基础解析能力，并重构了源码恢复流程和 JavaScript 美化器。
+
+在 **18 个本地 wxapkg、开启 JSON / HTML / JavaScript 美化**的测试中，相比原版：
+
+- 处理耗时：**883.68s → 40.99s**
+- CPU Time：**2989.98s → 110.25s**
+- 峰值内存：**4.4GB → ~356MB**
 
 ![界面截图](assets/screenshot.png)
 

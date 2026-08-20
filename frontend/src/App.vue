@@ -298,6 +298,14 @@ function saveSettings(next: AppSettings) {
   }
 }
 
+function onSettingsVisibilityChanged(visible: boolean) {
+  settingsDialogVisible.value = visible
+  if (!visible) {
+    pendingBatchUuids.value = []
+    pendingUnpackItem.value = null
+  }
+}
+
 function replaceItem(item: WxapkgItem) {
   wxapkgItems.value = wxapkgItems.value.map((current) =>
     current.UUID === item.UUID ? item : current
@@ -908,6 +916,7 @@ onBeforeUnmount(() => {
 
     <SettingsDialog
       v-model:visible="settingsDialogVisible"
+      @update:visible="onSettingsVisibilityChanged"
       :default-output-dir="settings.defaultOutputDir"
       :enable-decrypt="settings.enableDecrypt"
       :enable-json-beautify="settings.enableJsonBeautify"

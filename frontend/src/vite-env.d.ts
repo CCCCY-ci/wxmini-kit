@@ -7,20 +7,20 @@ declare module '*.vue' {
 }
 
 interface WailsBindings {
-    github.com_wux1an_wxapkg: {
+    'github.com_wux1an_wxapkg': {
         AppService: {
-            ClipboardSetText(text: string): Promise<boolean>;
+            ClipboardSetText(text: string): Promise<void>;
             CancelUnpack(uuid: string): Promise<boolean>;
             ComputeSavePath(outputDir: string, wxapkgPath: string): Promise<string>;
-            GetDefaultPaths(): Promise<string[]>;
-            GetWxapkgItem(uuid: string): Promise<import('./bindings/github.com/wux1an/wxapkg/wechat').WxapkgItem | null>;
+            GetDefaultPaths(): Promise<import('../wailsjs/go/models').wechat.PathScanResult>;
+            GetWxapkgItem(uuid: string): Promise<import('../wailsjs/go/models').wechat.WxapkgItem | null>;
             Github(): Promise<string>;
             OpenDirectoryDialog(title: string, root: string): Promise<string>;
-            OpenFileDialog(title: string, root: string, filters: FileFilter[]): Promise<string>;
+            OpenFileDialog(title: string, root: string, filters: Array<import('../wailsjs/go/models').main.FileFilter>): Promise<string>;
             OpenPath(path: string): Promise<void>;
             OpenUrl(url: string): Promise<void>;
-            ScanWxapkgItem(path: string, scan: boolean): Promise<import('./bindings/github.com/wux1an/wxapkg/wechat').WxapkgItem[]>;
-            UnpackWxapkgItem(item: import('./bindings/github.com/wux1an/wxapkg/wechat').WxapkgItem, options: import('./bindings/github.com/wux1an/wxapkg/wechat').UnpackOptions): Promise<void>;
+            ScanWxapkgItem(path: string, scan: boolean): Promise<import('../wailsjs/go/models').wechat.WxapkgItem[]>;
+            UnpackWxapkgItem(item: import('../wailsjs/go/models').wechat.WxapkgItem, options: import('../wailsjs/go/models').wechat.UnpackOptions): Promise<void>;
             Version(): Promise<string>;
         };
     };

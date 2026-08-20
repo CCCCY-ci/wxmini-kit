@@ -41,6 +41,7 @@ const options = reactive<UnpackOptions>({
   EnableJsBeautify: false,
   EnableJsonBeautify: true,
   OutputDir: "",
+  SavePath: "",
 });
 
 const decryptKey = ref('');

@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build:dev": "vite build --minify false --mode development",
-    "build": "vite build --mode production",
+    "typecheck": "vue-tsc --noEmit",
+    "build:dev": "npm run typecheck && vite build --minify false --mode development",
+    "build": "npm run typecheck && vite build --mode production",
     "preview": "vite preview"
   },
   "dependencies": {

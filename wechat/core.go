@@ -503,7 +503,7 @@ func (u *Unpacker) UnpackWithStatusCallback(callback func(item *WxapkgItem)) {
 		if u.isCancelled() {
 			u.item.SetCancelledState()
 		} else {
-			u.item.UnpackCurrentFile = "�w^~)�v��y��yۧu���X�w^~)�v��y��yۧu���K�w^~)�v��y��yۧu���A..."
+			u.item.UnpackCurrentFile = "正在恢复源码..."
 			callback(u.item)
 			restoreResult := u.restoreUnpackedSources()
 			u.item.UnpackRestoredFiles = restoreResult.files

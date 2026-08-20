@@ -1,5 +1,6 @@
 import {useToast} from 'primevue/usetoast';
-import { WxapkgItem } from "../../bindings/github.com/wux1an/wxapkg/wechat";
+import { wechat } from "../../wailsjs/go/models";
+import WxapkgItem = wechat.WxapkgItem;
 
 const DEFAULT_LIFE = 3000;
 

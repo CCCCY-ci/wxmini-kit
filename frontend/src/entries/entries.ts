@@ -1,5 +1,6 @@
-import { WxapkgItem } from "../../bindings/github.com/wux1an/wxapkg/wechat";
+import { wechat } from "../../wailsjs/go/models";
 import {UnpackStatusType} from "./util";
+import WxapkgItem = wechat.WxapkgItem;
 
 export class ScanPathItem {
     path: string;

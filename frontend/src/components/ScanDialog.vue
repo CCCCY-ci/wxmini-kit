@@ -3,7 +3,8 @@ import Dialog from 'primevue/dialog';
 import { ref, watch } from "vue";
 import { ScanPathItem } from "../entries/entries";
 import * as AppService from '../../wailsjs/go/main/AppService';
-import type { PathScanResult } from '../../wailsjs/go/main/AppService';
+import { wechat } from '../../wailsjs/go/models';
+import PathScanResult = wechat.PathScanResult;
 
 interface FileFilter {
   DisplayName: string;

@@ -4,22 +4,23 @@
 
 项目使用 Wails + Vue + Go 构建，保留原有 wxapkg 基础解析能力，并重构了源码恢复流程和 JavaScript 美化器。
 
-![界面截图](assets/screenshot.png)
+在 **18 个本地 wxapkg、开启 JSON / HTML / JavaScript 美化**的测试中，相比原版：
+
+- 处理耗时：**883.68s → 40.99s**
+- CPU Time：**2989.98s → 110.25s**
+- 峰值内存：**4.4GB → ~356MB**
+
+![界面截图](image.png)
 
 > 本项目仅用于学习、研究和合法的软件分析。请确保你拥有待处理文件的合法权限，并遵守当地法律法规、微信平台规则以及原项目和第三方依赖的许可证要求。
 
 ## 主要功能
 
-支持扫描或手动选择 Windows、macOS 上的微信小程序包，解析并解包 wxapkg 文件，尽可能恢复 JavaScript、JSON、WXML、WXSS 和 WXS 等源码文件，同时提供代码美化和语法校验能力。
-
-## 支持平台
-
-| 平台 | 自动扫描 | 手动解包 | 发布版本 |
-| --- | --- | --- | --- |
-| Windows x64 | 支持 | 支持 | <code>wxmini-kit-windows-x64.zip</code> |
-| macOS Universal | 支持 | 支持 | <code>wxmini-kit-macos-universal.zip</code> |
-
-当前只对 Windows 和 macOS 提供官方构建、发布和微信目录自动扫描支持。
+- ✅ 支持自动扫描 Windows、macOS 上的微信小程序目录。
+- ✅ 支持手动选择小程序目录或单个 wxapkg 文件。
+- ✅ 支持 wxapkg 解析、解包与批量反编译。
+- ✅ 支持尽可能恢复 JavaScript、JSON、WXML、WXSS 和 WXS 等源码文件。
+- ✅ 支持代码美化和语法校验。
 
 ## 下载
 

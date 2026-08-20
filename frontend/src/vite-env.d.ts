@@ -7,7 +7,7 @@ declare module '*.vue' {
 }
 
 interface WailsBindings {
-    github.com_wux1an_wxapkg: {
+    'github.com_wux1an_wxapkg': {
         AppService: {
             ClipboardSetText(text: string): Promise<boolean>;
             CancelUnpack(uuid: string): Promise<boolean>;

@@ -20,7 +20,7 @@ func main() {
 
 	err := wails.Run(&options.App{
 		Title:  "wxmini-kit",
-		Width:  1024,
+		Width:  1280,
 		Height: 768,
 		AssetServer: &assetserver.Options{
 			Assets: assets,

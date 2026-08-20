@@ -23,11 +23,24 @@ jobs:
           - name: Windows x64
             platform: windows
             os: windows-latest
+            wails_platform: windows/amd64
+            binary_name: wxmini-kit-windows-x64.exe
+            archive_name: wxmini-kit-windows-x64.zip
             artifact_name: wxmini-kit-windows-x64
             artifact_path: build/release/wxmini-kit-windows-x64.zip
+          - name: Windows ARM64
+            platform: windows
+            os: windows-latest
+            wails_platform: windows/arm64
+            binary_name: wxmini-kit-windows-arm64.exe
+            archive_name: wxmini-kit-windows-arm64.zip
+            artifact_name: wxmini-kit-windows-arm64
+            artifact_path: build/release/wxmini-kit-windows-arm64.zip
           - name: macOS Universal
             platform: macos
             os: macos-latest
+            wails_platform: darwin/universal
+            archive_name: wxmini-kit-macos-universal.zip
             artifact_name: wxmini-kit-macos-universal
             artifact_path: build/release/wxmini-kit-macos-universal.zip
 
@@ -69,28 +82,28 @@ jobs:
         if: matrix.platform == 'windows'
         env:
           CGO_ENABLED: 0
-        run: wails build -clean -platform windows/amd64 -ldflags "-X main.version=${{ env.BUILD_VERSION }}"
+        run: wails build -clean -platform ${{ matrix.wails_platform }} -ldflags "-X main.version=${{ env.BUILD_VERSION }}"
 
       - name: Build macOS
         if: matrix.platform == 'macos'
         env:
           MACOSX_DEPLOYMENT_TARGET: '10.13'
-        run: wails build -clean -platform darwin/universal -ldflags "-X main.version=${{ env.BUILD_VERSION }}"
+        run: wails build -clean -platform ${{ matrix.wails_platform }} -ldflags "-X main.version=${{ env.BUILD_VERSION }}"
 
       - name: Package Windows
         if: matrix.platform == 'windows'
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path build/release | Out-Null
-          Copy-Item build/bin/wxmini-kit.exe build/release/wxmini-kit-windows-x64.exe
-          Compress-Archive -Path build/release/wxmini-kit-windows-x64.exe -DestinationPath build/release/wxmini-kit-windows-x64.zip
+          Copy-Item build/bin/wxmini-kit.exe "build/release/${{ matrix.binary_name }}"
+          Compress-Archive -Path "build/release/${{ matrix.binary_name }}" -DestinationPath "build/release/${{ matrix.archive_name }}"
 
       - name: Package macOS
         if: matrix.platform == 'macos'
         shell: bash
         run: |
           mkdir -p build/release
-          ditto -c -k --keepParent build/bin/wxmini-kit.app build/release/wxmini-kit-macos-universal.zip
+          ditto -c -k --keepParent build/bin/wxmini-kit.app "build/release/${{ matrix.archive_name }}"
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4

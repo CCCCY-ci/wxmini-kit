@@ -12,7 +12,7 @@ import (
 //go:embed all:frontend/dist
 var assets embed.FS
 
-var version = "v0.1.0"
+var version = "dev"
 var github = "https://github.com/CCCCY-ci/wxmini-kit"
 
 func main() {

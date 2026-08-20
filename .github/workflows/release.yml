@@ -13,6 +13,9 @@ jobs:
     name: Build ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
+    env:
+      BUILD_VERSION: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || 'dev' }}
+      VITE_APP_VERSION: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || 'dev' }}
     strategy:
       fail-fast: false
       matrix:
@@ -66,13 +69,13 @@ jobs:
         if: matrix.platform == 'windows'
         env:
           CGO_ENABLED: 0
-        run: wails build -clean -platform windows/amd64
+        run: wails build -clean -platform windows/amd64 -ldflags "-X main.version=${{ env.BUILD_VERSION }}"
 
       - name: Build macOS
         if: matrix.platform == 'macos'
         env:
           MACOSX_DEPLOYMENT_TARGET: '10.13'
-        run: wails build -clean -platform darwin/universal
+        run: wails build -clean -platform darwin/universal -ldflags "-X main.version=${{ env.BUILD_VERSION }}"
 
       - name: Package Windows
         if: matrix.platform == 'windows'

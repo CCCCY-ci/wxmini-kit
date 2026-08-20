@@ -63,7 +63,7 @@ const selectedUuids = ref<Set<string>>(new Set())
 const batchRunning = ref(false)
 const pendingBatchUuids = ref<string[]>([])
 const toast = useAppToast()
-const version = ref('v0.1.0')
+const version = ref(import.meta.env.VITE_APP_VERSION || 'dev')
 const github = ref('https://github.com/CCCCY-ci/wxmini-kit')
 
 const selectedPath = computed(() => detectedPaths.value[selectedPathIndex.value] ?? null)

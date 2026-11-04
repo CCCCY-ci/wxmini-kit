@@ -318,9 +318,6 @@ func parseWxapkgIndex(reader io.ReaderAt, logicalSize int64) ([]wxapkgIndexEntry
 		if err != nil {
 			return nil, errors.Errorf("read wxapkg entry %d size: %v", i, err)
 		}
-		if entrySize > maxEntrySize {
-			return nil, errors.Errorf("wxapkg entry %q size %d exceeds limit %d", string(nameBytes), entrySize, maxEntrySize)
-		}
 		if uint64(entryOffset)+uint64(entrySize) > uint64(logicalSize) {
 			return nil, errors.Errorf("wxapkg entry %q exceeds file boundary", string(nameBytes))
 		}

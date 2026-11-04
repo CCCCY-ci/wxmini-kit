@@ -21,7 +21,6 @@ var reWxId = regexp.MustCompile(`^wx[0-9a-f]{16}$`)
 const (
 	maxWxapkgFileCount  uint32 = 102400
 	maxWxapkgNameLength uint32 = 1024
-	maxEntrySize        uint32 = 10 * 1024 * 1024
 	maxUnpackWorkers           = 4
 )
 
@@ -369,9 +368,7 @@ func (u *Unpacker) analyze(data []byte, archivePath, sourcePath string) ([]*Wxap
 		if err := binary.Read(f, binary.BigEndian, &item.size); err != nil {
 			return nil, errors.Errorf("读取文件 '%s' 大小失败: %v", string(nameBytes), err)
 		}
-		if item.size > maxEntrySize {
-			return nil, errors.Errorf("文件 '%s' 标记长度 %d 超出上限 %d MB", string(nameBytes), item.size, maxEntrySize/(1024*1024))
-		}
+		// Entries may exceed 10 MiB; validate against the actual archive size.
 		if uint64(item.offset)+uint64(item.size) > uint64(len(data)) {
 			return nil, errors.Errorf("文件 '%s' 的数据范围超出 wxapkg 文件边界", string(nameBytes))
 		}

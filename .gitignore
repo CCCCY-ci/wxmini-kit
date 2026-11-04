@@ -30,3 +30,6 @@
 *.log
 .DS_Store
 Thumbs.db
+
+# Keep the large-entry regression test in source control.
+!wechat/large_entry_test.go
